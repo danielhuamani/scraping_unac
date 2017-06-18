@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .scraping_cursos import CursoScraping
+from .scraping_cursos import Scraping
 from .models import Curso
 
 
 def cursos(request):
-    data = {}
     codigo = request.GET.get('codigo')
-    list_cursos = []
     if codigo:
-        curso = CursoScraping(codigo)
-        curso.save_cursos()
+        curso = Scraping(codigo)
+        alumno = curso.save_alumno()
     cursos = Curso.objects.values_list('codigo', 'nombre', 'electivo', 'credito')
-    return JsonResponse(list(cursos), safe=False)
+    data = {
+        'alumno': alumno.alumno
+    }
+    return JsonResponse(data, safe=False)

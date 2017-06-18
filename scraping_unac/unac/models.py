@@ -5,7 +5,7 @@ from django.db import models
 
 class Ciclo(models.Model):
     ciclo = models.CharField('ciclo', max_length=120)
-    nombre = models.CharField("Curso", max_length=120)
+    nombre = models.CharField("Curso", max_length=120, blank=True)
 
     class Meta:
         verbose_name = "Ciclo"
