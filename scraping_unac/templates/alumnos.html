@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    {% include "./common.html" %}
+    <div class="container">
+      <h2>Listado Alumnos</h2>
+      <form class="form-inline" method="POST" action=".">
+      {% csrf_token %}
+        <label class="sr-only" for="inlineFormInput">Codigo</label>
+        <input type="text" name="codigo" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Codigo">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Codigo</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for alumno in alumnos %}
+
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'unac:notas' alumno.pk %}">{{alumno.codigo}}</a></td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+</body>
+</html>

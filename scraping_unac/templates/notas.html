@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    {% include "./common.html" %}
+    <div class="container">
+      <h2>Notas {{codigo}}</h2>
+      <form class="form-inline" method="POST" action=".">
+      {% csrf_token %}
+
+      </form>
+      <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Curso</th>
+            <th>nota</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for nota in notas %}
+
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{nota.curso.nombre}}</td>
+            <td>{{nota.nota}}</td>
+
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>
+</body>
+</html>
