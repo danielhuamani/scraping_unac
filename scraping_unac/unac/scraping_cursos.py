@@ -1,7 +1,7 @@
 # from django.conf import settings
 import requests
 from bs4 import BeautifulSoup
-from .models import (Curso, Ciclo, Alumnos, Notas, Anio)
+from .models import (Curso, Ciclo, Alumnos, Notas, Anio, Escuela)
 
 
 class Scraping(object):
@@ -11,6 +11,7 @@ class Scraping(object):
     session =    ''
     codigo = ''
     electivo = '(E)'
+    escuela = ''
 
     def __init__(self, codigo):
         super(Scraping, self).__init__()
@@ -56,6 +57,12 @@ class Scraping(object):
         self.save_notas(result)
         return True
 
+    def get_escuela(self, code):
+        print ('codigo', code)
+        escuela, created = Escuela.objects.get_or_create(codigo=code)
+
+        return escuela
+
     def get_curso(self, codigo, credito=None, nombre=None):
         print (codigo, credito, nombre)
         try:
@@ -84,7 +91,6 @@ class Scraping(object):
         result = html
         for tr in result.select('tr[bgcolor="WHITE"]'):
 
-            print (tr.find_all('td')[4].text)
             try:
                 curso = self.get_curso(
                     tr.find_all('td')[0].text,
@@ -103,16 +109,18 @@ class Scraping(object):
 
     def get_save_alumno(self, html):
         result = html
-
+        escuela = self.get_escuela(52)
+        print (type(escuela))
         try:
-
             data_html = result.select('table[width="75%"] strong')[0].text
             alumno = " ".join(data_html.split(':')[1].split("-")[:3])
             try:
                 print (self.codigo)
-                alumno = Alumnos(codigo=self.codigo, alumno=alumno)
+                alumno = Alumnos(
+                    codigo=self.codigo, alumno=alumno, escuela=escuela)
                 alumno.save()
             except Exception as e:
+                print (e)
                 print ("get", self.codigo)
                 alumno = Alumnos.objects.get(codigo=self.codigo)
             return alumno

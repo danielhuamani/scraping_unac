@@ -29,8 +29,18 @@ class Curso(models.Model):
     def __str__(self):
         return self.nombre
 
+class Escuela(models.Model):
+    nombre = models.CharField("Escuela", max_length=120)
+    codigo = models.CharField("Codigo", max_length=120, unique=True)
+    class Meta:
+        verbose_name = "Escuela"
+        verbose_name_plural = "Escuelas"
+
+    def __str__(self):
+        return self.nombre
 
 class Alumnos(models.Model):
+    escuela = models.ForeignKey(Escuela, related_name='escuela_alumnos')
     creado = models.DateTimeField("Fecha", auto_now_add=True, null=True)
     codigo = models.CharField("Codigo", max_length=120, unique=True)
     alumno = models.CharField("Alumno", max_length=120)
