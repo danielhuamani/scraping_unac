@@ -39,6 +39,7 @@ class Escuela(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class Alumnos(models.Model):
     escuela = models.ForeignKey(Escuela, related_name='escuela_alumnos')
     creado = models.DateTimeField("Fecha", auto_now_add=True, null=True)
@@ -51,6 +52,10 @@ class Alumnos(models.Model):
 
     def __str__(self):
         return self.alumno
+
+    @property
+    def get_cantidad_notas_no_electivos(self):
+        return len([nota for nota in self.alumnos_set.all() if '(E)' not in nota.curso.nombre])
 
 
 class Anio(models.Model):

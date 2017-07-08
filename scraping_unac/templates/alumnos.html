@@ -10,9 +10,17 @@
       <h2>Listado Alumnos</h2>
       <form class="form-inline" method="POST" action=".">
       {% csrf_token %}
-        <label class="sr-only" for="inlineFormInput">Codigo</label>
-        <input type="text" name="codigo" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Codigo">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="row">
+          <label class="sr-only" for="inlineFormInput">Codigo</label>
+          <div class="col-md-6">
+            <input type="text" name="codigo" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Codigo">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="{%url 'unac:generate_csv_data_format_1' %}" class="btn btn-info">Descargar Dataset F1</a>
+            <a href="{%url 'unac:generate_csv_data_format_1' %}" class="btn btn-success">Descargar Dataset F2</a>
+          </div>
+        </div>
       </form>
       <div class="table-responsive">
       <table class="table">
