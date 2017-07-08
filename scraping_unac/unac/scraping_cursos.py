@@ -47,14 +47,14 @@ class Scraping(object):
             }
             yield curso
 
-    # def save_ciclo(self):
-    #     for
-
     def get_data(self):
         result = self.get_result_page()
-        self.get_save_alumno(result)
-        self.save_cursos(result)
-        self.save_notas(result)
+        alumno = self.get_save_alumno(result)
+        if alumno:
+            self.save_cursos(result)
+            self.save_notas(result, alumno)
+        else:
+            print("eorrrro")
         return True
 
     def get_escuela(self, code):
@@ -85,8 +85,8 @@ class Scraping(object):
                 obj, create = Anio.objects.get_or_create(anio=anio)
         return True
 
-    def save_notas(self, html):
-        alumno = self.get_save_alumno(html)
+    def save_notas(self, html, alumno):
+        alumno = alumno
         print (alumno)
         result = html
         for tr in result.select('tr[bgcolor="WHITE"]'):
@@ -122,7 +122,10 @@ class Scraping(object):
             except Exception as e:
                 print (e)
                 print ("get", self.codigo)
-                alumno = Alumnos.objects.get(codigo=self.codigo)
+                try:
+                    alumno = Alumnos.objects.get(codigo=self.codigo)
+                except Exception as e:
+                    alumno = None
             return alumno
         except Exception as e:
             alumno = None
