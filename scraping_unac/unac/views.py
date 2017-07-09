@@ -55,7 +55,7 @@ def generate_csv_data_format_1(request):
     # Obtengo los cursos de la curricula antigua
     cursos_curricula_antigua = set([nota.curso.nombre for nota in Notas.objects.filter(alumno=alumno_universo).order_by('creatdo') if '(E)' not in nota.curso.nombre])
     cantidad_cursos = len(cursos_curricula_antigua)
-    print ('cantidad cursos', cantidad_cursos)
+    print ('cantidad cursos', cursos_curricula_antigua)
     # Alumnos que han culminado la universidad
     alumnos = [alumno for alumno in Alumnos.objects.all() if alumno.get_cantidad_notas_no_electivos >= cantidad_cursos]
     print ('cantidad alumnos', len(alumnos))
