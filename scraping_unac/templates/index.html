@@ -6,5 +6,53 @@
 </head>
 <body>
 	{% include "./common.html" %}
+    <style type="text/css">
+        h2 {
+            font-family: "Times New Roman", Georgia, Serif;
+        }
+        p {
+            font-size: 22px;
+            font-family: "Times New Roman", Georgia, Serif;
+        }
+        li  {
+            font-size: 22px;
+            font-family: "Times New Roman", Georgia, Serif;
+        }
+    </style>
+    <div class="container">
+    <div class="panel-body">
+        <h2 class="text-center">Predicción del Rendimiento académico de los alumnos de la Escuela de Ingeniería de Sistemas</h2>
+        <br>
+        <p>
+            El presente trabajo de investigación, tiene como finalidad la creación de un predictor, el cuál sea capaz de predecir el rendimiento académico de los alumnos de Ingeniería de Sistemas, utilizando como features las notas que obtuvo el alumno en los distintos cursos de la currícula.
+        </p>
+        <p>
+            Decidimos realizar el proyecto en el lenguaje de Programación Python, el cual es muy usado para investigaciones relacionados a Inteligencia Artificial, y es un lenguaje sencillo de comprender.
+        </p>
+        <p>
+            El primer obstáculo en esta investigación era encontrar un dataset, el cuál pueda alimentar a nuestro algoritmo.
+            Al no tener uno, decidimos crear uno propio, para ello realizamos Web Scraping a la página de Oagra, para obtener las notas de distintos alumnos.
+        </p>
+        <p>
+         El segundo reto fue generar el dataset, una vez que guardamos las notas de los alumnos en base de datos, queriamos filtrar esos registros para obtener unicamente a los alumnos egresados, para ello utilizamos el ORM de Django, que es el framework web que utilziamos. Adicionalmente en este paso calulamos  la nota promedio de los alumnos y los categorizamos:
+         <ul>
+             <li>
+                A: Promedio mayor a iigual 13
+              </li>
+              <li>
+                B: Promedio de 11 o 12
+              </li>
+              <li>
+                C: Promedio menor de 11
+              </li>
+         </ul>
+        </p>
+
+        <p>
+            Una vez que formamos nuestro dataset, empezamos a crear nuestros modelos y realizamos experimentos para encontrar una forma de obtener la mayor precisión posible. Los resultados se pueden ver en este <a href="{% url 'unac:reporte' %}"><strong>enlace</strong></a>.
+        </p>
+    </div>
+
+    </div>
 </body>
 </html>
