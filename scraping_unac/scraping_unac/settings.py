@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'scraping_unac.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'unac',
-        'USER': 'daniel',
-        'PASSWORD': 'daniel123',
+        'NAME': 'scraping_unac',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': 5432,
         'CONN_MAX_AGE': None,

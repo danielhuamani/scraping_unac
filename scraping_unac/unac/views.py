@@ -49,23 +49,24 @@ def notas(request, pk):
     return render(request, "notas.html", locals())
 
 
+def reporte(request):
+    return render(request, "reporte.html", locals())
+
+
 def generate_csv_data_format_1(request):
     cod_alumno_universo = '1115220329'
     alumno_universo = Alumnos.objects.get(codigo=cod_alumno_universo)
     # Obtengo los cursos de la curricula antigua
     cursos_curricula_antigua = set([nota.curso.nombre for nota in Notas.objects.filter(alumno=alumno_universo).order_by('creatdo') if '(E)' not in nota.curso.nombre])
     cantidad_cursos = len(cursos_curricula_antigua)
-    print ('cantidad cursos', cursos_curricula_antigua)
     # Alumnos que han culminado la universidad
     alumnos = [alumno for alumno in Alumnos.objects.all() if alumno.get_cantidad_notas_no_electivos >= cantidad_cursos]
-    print ('cantidad alumnos', len(alumnos))
     alumnos_egresados = []  # En teoria egresados, puede ser q  llevo el curso, pero no lo aprobo.
     for alumno in alumnos:
         notas = alumno.alumnos_set.all()
         cursos = [nota.curso.nombre for nota in notas if '(E)' not in nota.curso.nombre]
         if all([curso if curso in cursos else False for curso in cursos_curricula_antigua]):
             alumnos_egresados.append(alumno.id)
-    print ('alumnos egresados', len(alumnos_egresados))
     ###
     # Creamos la estructura de nuestro dataset
     # {'id_alumno': {'MATEMATICA':15, 'LP1':14, ...}}
@@ -81,7 +82,6 @@ def generate_csv_data_format_1(request):
                         result_final[nota.alumno_id][nota.curso.nombre] = nota.nota
                 # ASGINAMOS EL RENDIMIENTO ACADEMICO
                 if len(result_final[nota.alumno_id].keys()) == cantidad_cursos + 1:
-                    print ('PSE EL IF')
                     total_notas = 0
                     for key in result_final[nota.alumno_id].keys():
                         if key != 'CODIGO ALUMNO':

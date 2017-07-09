@@ -17,8 +17,10 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
           <div class="col-md-6 text-right">
-            <a href="{%url 'unac:generate_csv_data_format_1' %}" class="btn btn-info">Descargar Dataset F1</a>
+            <a href="{%url 'unac:generate_csv_data_format_1' %}" class="btn btn-info">Descargar Dataset</a>
+            {% comment %}
             <a href="{%url 'unac:generate_csv_data_format_1' %}" class="btn btn-success">Descargar Dataset F2</a>
+            {% endcomment %}
           </div>
         </div>
       </form>
